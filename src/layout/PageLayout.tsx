@@ -1,11 +1,19 @@
 import Header from "./Header";
 import Nav from "./Nav";
+import { Flex, Group } from "@mantine/core";
 
-export default function PageLayout() {
+type PageLayoutProps = {
+  children: React.ReactNode;
+};
+export default function PageLayout({ children }: PageLayoutProps) {
   return (
-    <>
+    <Group sx={{ gap: 0 }} align={"flex-start"}>
       <Nav />
-      <Header user={{ name: "abdelrahman", image: "./abdelrahman.jpeg" }} />
-    </>
+
+      <Flex direction={"column"} className="flex-1">
+        <Header user={{ name: "abdelrahman", image: "/abdelrahman.jpeg" }} />
+        {children}
+      </Flex>
+    </Group>
   );
 }

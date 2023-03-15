@@ -6,12 +6,13 @@ import PageLayout from "./layout/PageLayout";
 function App() {
   return (
     <>
-      <PageLayout />
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/booking" element={<Booking />} />
-      </Routes>
+      <PageLayout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/booking" element={<Booking />} />
+        </Routes>
+      </PageLayout>
     </>
   );
 }

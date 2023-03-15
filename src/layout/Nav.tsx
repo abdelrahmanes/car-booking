@@ -1,22 +1,10 @@
 import { useState } from "react";
+import { createStyles, Navbar, Group, getStylesRef, rem } from "@mantine/core";
 import {
-  createStyles,
-  Navbar,
-  Group,
-  Code,
-  getStylesRef,
-  rem,
-} from "@mantine/core";
-import {
-  IconBellRinging,
-  IconFingerprint,
-  IconKey,
-  IconSettings,
-  Icon2fa,
-  IconDatabaseImport,
-  IconReceipt2,
-  IconSwitchHorizontal,
+  IconLayoutDashboard,
+  IconCar,
   IconLogout,
+  IconSettings,
 } from "@tabler/icons-react";
 import { MantineLogo } from "@mantine/ds";
 
@@ -24,17 +12,11 @@ const useStyles = createStyles((theme) => ({
   header: {
     paddingBottom: theme.spacing.md,
     marginBottom: `calc(${theme.spacing.md} * 1.5)`,
-    borderBottom: `${rem(1)} solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
   },
 
   footer: {
     paddingTop: theme.spacing.md,
     marginTop: theme.spacing.md,
-    borderTop: `${rem(1)} solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
   },
 
   link: {
@@ -48,14 +30,15 @@ const useStyles = createStyles((theme) => ({
         ? theme.colors.dark[1]
         : theme.colors.gray[7],
     padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
-    borderRadius: theme.radius.sm,
+    borderRadius: theme.radius.md,
     fontWeight: 500,
+    width: 200,
 
     "&:hover": {
       backgroundColor:
         theme.colorScheme === "dark"
           ? theme.colors.dark[6]
-          : theme.colors.gray[0],
+          : theme.colors.gray[1],
       color: theme.colorScheme === "dark" ? theme.white : theme.black,
 
       [`& .${getStylesRef("icon")}`]: {
@@ -90,13 +73,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const data = [
-  { link: "", label: "Notifications", icon: IconBellRinging },
-  { link: "", label: "Billing", icon: IconReceipt2 },
-  { link: "", label: "Security", icon: IconFingerprint },
-  { link: "", label: "SSH Keys", icon: IconKey },
-  { link: "", label: "Databases", icon: IconDatabaseImport },
-  { link: "", label: "Authentication", icon: Icon2fa },
-  { link: "", label: "Other Settings", icon: IconSettings },
+  { link: "", label: "Dashboard", icon: IconLayoutDashboard },
+  { link: "", label: "Cars", icon: IconCar },
 ];
 
 export default function Nav() {
@@ -121,11 +99,10 @@ export default function Nav() {
   ));
 
   return (
-    <Navbar height={700} width={{ sm: 300 }} p="md">
+    <Navbar width={{ sm: 250 }} p="md">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           <MantineLogo size={28} />
-          <Code sx={{ fontWeight: 700 }}>v3.1.2</Code>
         </Group>
         {links}
       </Navbar.Section>
@@ -136,8 +113,8 @@ export default function Nav() {
           className={classes.link}
           onClick={(event) => event.preventDefault()}
         >
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
+          <IconSettings className={classes.linkIcon} stroke={1.5} />
+          <span>Settings</span>
         </a>
 
         <a
