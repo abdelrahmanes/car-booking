@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createStyles, Navbar, Group, getStylesRef, rem } from "@mantine/core";
+import { createStyles, Navbar, Group, getStylesRef, Flex } from "@mantine/core";
 import {
   IconLayoutDashboard,
   IconCar,
@@ -7,6 +7,7 @@ import {
   IconSettings,
 } from "@tabler/icons-react";
 import { MantineLogo } from "@mantine/ds";
+import { NavLink } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -73,29 +74,28 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const data = [
-  { link: "", label: "Dashboard", icon: IconLayoutDashboard },
-  { link: "", label: "Cars", icon: IconCar },
+  {
+    link: "/dashboard",
+    label: "Dashboard",
+    icon: IconLayoutDashboard,
+  },
+  { link: "/booking", label: "Cars", icon: IconCar },
 ];
 
 export default function Nav() {
-  const { classes, cx } = useStyles();
-  const [active, setActive] = useState("Billing");
+  const { classes } = useStyles();
 
   const links = data.map((item) => (
-    <a
-      className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
-      })}
-      href={item.link}
+    <NavLink
       key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
+      to={item.link}
+      className={({ isActive }) =>
+        isActive ? `${classes.linkActive} ${classes.link}` : classes.link
+      }
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
-    </a>
+    </NavLink>
   ));
 
   return (
@@ -104,7 +104,9 @@ export default function Nav() {
         <Group className={classes.header} position="apart">
           <MantineLogo size={28} />
         </Group>
-        {links}
+        <Flex direction={"column"} gap={3}>
+          {links}
+        </Flex>
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
