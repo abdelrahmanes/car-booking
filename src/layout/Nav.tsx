@@ -1,5 +1,11 @@
-import { useState } from "react";
-import { createStyles, Navbar, Group, getStylesRef, Flex } from "@mantine/core";
+import {
+  createStyles,
+  Navbar,
+  Group,
+  getStylesRef,
+  Flex,
+  Image,
+} from "@mantine/core";
 import {
   IconLayoutDashboard,
   IconCar,
@@ -8,6 +14,10 @@ import {
 } from "@tabler/icons-react";
 import { MantineLogo } from "@mantine/ds";
 import { NavLink } from "react-router-dom";
+import DashboardIcon from "../Icons/DashboardIcon";
+import CarIcon from "../Icons/CarIcon";
+import SettingsIcon from "../Icons/SettingsIcon";
+import LogoutIcon from "../Icons/LogoutIcon";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -59,15 +69,13 @@ const useStyles = createStyles((theme) => ({
 
   linkActive: {
     "&, &:hover": {
-      backgroundColor: theme.fn.variant({
-        variant: "light",
-        color: theme.primaryColor,
-      }).background,
-      color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
-        .color,
+      backgroundColor: theme.colors.gray[2],
+      color: theme.colors.gray[8],
       [`& .${getStylesRef("icon")}`]: {
-        color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
-          .color,
+        color: theme.fn.variant({
+          variant: "light",
+          color: theme.colors.gray[0],
+        }).color,
       },
     },
   },
@@ -77,9 +85,9 @@ const data = [
   {
     link: "/dashboard",
     label: "Dashboard",
-    icon: IconLayoutDashboard,
+    icon: DashboardIcon,
   },
-  { link: "/booking", label: "Cars", icon: IconCar },
+  { link: "/booking", label: "Cars", icon: CarIcon },
 ];
 
 export default function Nav() {
@@ -93,16 +101,21 @@ export default function Nav() {
         isActive ? `${classes.linkActive} ${classes.link}` : classes.link
       }
     >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
+      <item.icon className={classes.linkIcon} stroke={"1.5"} />
       <span>{item.label}</span>
     </NavLink>
   ));
 
   return (
-    <Navbar width={{ sm: 250 }} p="md">
+    <Navbar width={{ sm: 250 }} p="md" className="md:fixed">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
-          <MantineLogo size={28} />
+          <Image
+            src={"images/logo.png"}
+            width={108.91}
+            height={31}
+            alt="logo"
+          />
         </Group>
         <Flex direction={"column"} gap={3}>
           {links}
@@ -115,7 +128,7 @@ export default function Nav() {
           className={classes.link}
           onClick={(event) => event.preventDefault()}
         >
-          <IconSettings className={classes.linkIcon} stroke={1.5} />
+          <SettingsIcon className={classes.linkIcon} stroke={"1.5"} />
           <span>Settings</span>
         </a>
 
@@ -124,7 +137,7 @@ export default function Nav() {
           className={classes.link}
           onClick={(event) => event.preventDefault()}
         >
-          <IconLogout className={classes.linkIcon} stroke={1.5} />
+          <LogoutIcon className={classes.linkIcon} stroke={"1.5"} />
           <span>Logout</span>
         </a>
       </Navbar.Section>

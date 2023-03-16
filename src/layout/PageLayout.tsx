@@ -10,8 +10,8 @@ export default function PageLayout({ children }: PageLayoutProps) {
     <Group sx={{ gap: 0 }} align={"flex-start"}>
       <Nav />
 
-      <Flex direction={"column"} className="flex-1">
-        <Header user={{ name: "abdelrahman", image: "/abdelrahman.jpeg" }} />
+      <Flex direction={"column"} className="flex-1  md:ml-[234px]">
+        <Header user={{ name: "abdelrahman", image: "/images/user.png" }} />
         {children}
       </Flex>
     </Group>

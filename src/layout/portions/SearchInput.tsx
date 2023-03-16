@@ -16,10 +16,13 @@ export default function SearchInput(props: TextInputProps) {
       theme={{
         components: {
           Input: {
-            styles: (theme) => ({
+            styles: () => ({
               input: {
                 "&:focus": { borderColor: "transparent" },
-                paddingRight: "calc(18.25rem / 3)",
+                // paddingRight: "calc(18.25rem / 3)",
+                padding: "12px 14px",
+                width: "358px",
+                height: "46px",
                 caretColor: "orange",
                 fontWeight: 500,
               },
@@ -47,7 +50,6 @@ export default function SearchInput(props: TextInputProps) {
         //       )}
         //     </ActionIcon>
         //   }
-
         placeholder="Search or type"
         variant="filled"
         className="focus:border-gray-200"

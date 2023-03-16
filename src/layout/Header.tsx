@@ -1,12 +1,18 @@
-import { createStyles, Container, Avatar, Group, rem } from "@mantine/core";
+import {
+  createStyles,
+  Container,
+  Avatar,
+  Group,
+  rem,
+  Image,
+} from "@mantine/core";
+import NotificationIcon from "../Icons/NotificationIcon";
 
 import SearchInput from "./portions/SearchInput";
 
-import { IconBellRinging } from "@tabler/icons-react";
 const useStyles = createStyles((theme) => ({
   header: {
-    paddingTop: theme.spacing.sm,
-    paddingBottom: theme.spacing.sm,
+    padding: "15px 31px",
   },
 
   mainSection: { maxWidth: "90rem" },
@@ -41,14 +47,15 @@ export default function Header({ user }: HeaderProps) {
   const { classes } = useStyles();
 
   return (
-    <div className={`${classes.header} flex-1 `}>
-      <Container className={classes.mainSection}>
+    <div className={`${classes.header} flex-1 bg-white md:sticky top-0 z-50`}>
+      <Container className={classes.mainSection} p={0}>
         <Group position="apart">
           <SearchInput />
 
           <Group spacing={22}>
-            <IconBellRinging strokeWidth={1} />
-            <Avatar src={user.image} alt={user.name} radius="xl" size={35} />
+            <NotificationIcon width={19.2} height={27} stroke={"1.5"} />
+
+            <Avatar src={user.image} alt={user.name} radius="xl" size={48} />
           </Group>
         </Group>
       </Container>

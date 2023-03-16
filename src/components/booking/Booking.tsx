@@ -1,8 +1,10 @@
+import { Container } from "@mantine/core";
+
 function Booking() {
   return (
-    <h1 className="bg-gray-100" style={{ height: "calc(100vh - 70px)" }}>
+    <Container p={"30px 27px"} m={0}>
       Booking
-    </h1>
+    </Container>
   );
 }
 
