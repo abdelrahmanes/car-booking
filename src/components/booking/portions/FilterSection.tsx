@@ -60,7 +60,10 @@ export default function FilterSection({ getFilters }: FilterSectionProps) {
           className={`${
             filtersActive ? "bg-purple" : "bg-white"
           } rounded-full p-2 cursor-pointer`}
-          onClick={() => setFiltersActive(!filtersActive)}
+          onClick={() => {
+            setFiltersActive(!filtersActive);
+            setFilters({});
+          }}
         >
           <FilterIcon
             width={24}

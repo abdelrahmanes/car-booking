@@ -6,7 +6,20 @@ export const carApiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
   endpoints: (builder) => ({
     getItems: builder.query({
-      query: () => "specs",
+      query: (options) => {
+        const { State, Brand } = options;
+        let url = "/specs";
+        if (!Brand || !State) {
+          url = "/specs";
+        } else if (State !== "State" && Brand !== "Brand") {
+          url += `?state=${State}&brand=${Brand}`;
+        } else if (State && Brand === "Brand" && State !== "State") {
+          url += `?state=${State}`;
+        } else if (Brand && State === "State" && Brand !== "Brand") {
+          url += `?brand=${Brand}`;
+        }
+        return url;
+      },
     }),
   }),
 });

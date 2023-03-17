@@ -7,17 +7,25 @@ import CarCard from "./portions/CarCard";
 import FilterSection from "./portions/FilterSection";
 
 function Booking() {
-  const [cars, setCars] = useState<carType[]>([]);
+  // const [cars, setCars] = useState<carType[]>([]);
+  const [filteredCars, setFilteredCars] = useState<carType[]>([]);
   const [filters, setFilters] = useState({});
-  const { data, isLoading } = useGetItemsQuery("");
-  console.log(data);
+  const { data, isLoading } = useGetItemsQuery(filters);
 
   const getFilters = (filters: {}) => {
     setFilters(filters);
   };
+
+  // for didmount lifecycle
+
+  // useEffect(() => {
+  //   if (data) {
+  //     setFilteredCars(data);
+  //   }
+  // }, []);
   useEffect(() => {
     if (data) {
-      setCars(data);
+      setFilteredCars(data);
     }
   }, [data]);
 
@@ -32,7 +40,7 @@ function Booking() {
       ) : (
         <div className="  py-4  ">
           <Grid gutter={20} grow>
-            {cars?.map((car: carType) => {
+            {filteredCars?.map((car: carType) => {
               return (
                 <Grid.Col
                   key={car.id}
