@@ -1,245 +1,104 @@
-import { Button, Container, Flex, Grid, Image, Text } from "@mantine/core";
+import { Flex, Grid, Image, Text } from "@mantine/core";
 import EnergyIcon from "../../Icons/EnergyIcon";
-import {
-  buildStyles,
-  CircularProgressbarWithChildren,
-} from "react-circular-progressbar";
+import { useState, useEffect } from "react";
+
 import RangeIcon from "../../Icons/RangeIcon";
 import BreakFluidIcon from "../../Icons/BreakFluidIcon";
 import TireWearIcon from "../../Icons/TireWearIcon";
-import RecycleIcon from "../../Icons/RecycleIcon";
-import RepostIcon from "../../Icons/RepostIcon";
-import SettingsIcon from "../../Icons/SettingsIcon";
-import EnergyIconOutlined from "../../Icons/EnergyIconOutlined";
+
+import { useGetItemsQuery } from "../../services/car";
+import { carType } from "../../types";
+import SpecCard from "./portions/SpecCard";
+import TopCarCard from "./portions/TopCarCard";
 function Dashboard() {
+  const [topCars, setTopCars] = useState<carType[]>([]);
+  const { data, isLoading, isSuccess, isError } = useGetItemsQuery({});
+  const top3 = (): carType[] => {
+    let dataForSort;
+    if (data) {
+      dataForSort = [...data];
+    }
+    return dataForSort
+      ?.sort((a: carType, b: carType) => b.stars - a.stars)
+      .slice(0, 3)!;
+  };
+
+  useEffect(() => {
+    setTopCars(top3());
+  }, [data]);
+
+  const specCardsData = [
+    {
+      id: 1,
+      bgColor: "purple",
+      label: "Energy",
+      labelNum: "45",
+      labelColor: "white",
+      icon: EnergyIcon,
+      value: 45,
+      pathColor: `#fff`,
+      textColor: "#fff",
+      trailColor: "#B37EFC",
+    },
+    {
+      id: 2,
+      bgColor: "white",
+      label: "Range",
+      icon: RangeIcon,
+      labelNum: "157k",
+      labelColor: "dark1",
+      value: 57,
+      pathColor: `#FF7E86`,
+      textColor: "#000",
+      trailColor: "#F4F5F9",
+    },
+    {
+      id: 3,
+      bgColor: "white",
+      label: "Brake Fluid",
+      labelNum: "9",
+      labelColor: "dark1",
+      icon: BreakFluidIcon,
+      value: 9,
+      pathColor: `#A162F7`,
+      textColor: "#000",
+      trailColor: "#F4F5F9",
+    },
+    {
+      id: 4,
+      bgColor: "white",
+      label: "Tire Wear",
+      labelNum: "25",
+      labelColor: "dark1",
+      icon: TireWearIcon,
+      value: 25,
+      pathColor: `#F6CC0D`,
+      textColor: "#000",
+      trailColor: "#F4F5F9",
+    },
+  ];
   return (
     <div className="px-8 py-4  ">
       <Grid gutter={20} grow>
-        <Grid.Col
-          xs={2}
-          bg="blue"
-          m="sm"
-          className="flex flex-col justify-center items-center  gap-7 bg-purple rounded-2xl px-14 py-5"
-        >
-          <Flex
-            direction={"column"}
-            justify="center"
-            align={"center"}
-            gap={"10px"}
-          >
-            <EnergyIcon className="transform -translate-x-1/2 -translate-y-1/2" />
-            <Text
-              className="font-dmSans tracking-[0.07em]"
-              color={"white"}
-              fw={700}
-              fz={24}
-              fs="normal"
+        {specCardsData.map((item) => {
+          return (
+            <SpecCard
+              key={item.id}
+              bgColor={item.bgColor}
+              label={item.label}
+              labelColor={item.labelColor}
+              labelNum={item.labelNum}
+              value={item.value}
+              pathColor={item.pathColor}
+              textColor={item.textColor}
+              trailColor={item.trailColor}
             >
-              Energy
-            </Text>
-          </Flex>
-          <div style={{ width: 112, height: 112 }}>
-            <CircularProgressbarWithChildren
-              strokeWidth={11}
-              value={45}
-              circleRatio={0.75}
-              styles={buildStyles({
-                // Rotation of path and trail, in number of turns (0-1)
-                rotation: 1 / 2 + 1 / 8,
-
-                // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                strokeLinecap: "round",
-
-                // Text size
-                textSize: "24px",
-
-                // How long animation takes to go from one percentage to another, in seconds
-                pathTransitionDuration: 0.5,
-
-                // Can specify path transition in more detail, or remove it entirely
-                // pathTransition: 'none',
-
-                // Colors
-                pathColor: `#fff`,
-                textColor: "#fff",
-                trailColor: "#B37EFC ",
-                backgroundColor: "white",
-              })}
-            >
-              <Text fz={24} fw={700} color={"white"}>
-                45%
-              </Text>
-            </CircularProgressbarWithChildren>
-          </div>
-        </Grid.Col>
-        <Grid.Col
-          xs={2}
-          bg="blue"
-          m="sm"
-          className="flex flex-col justify-center items-center  gap-7 bg-white rounded-2xl px-14 py-5"
-        >
-          <Flex
-            direction={"column"}
-            justify="center"
-            align={"center"}
-            gap={"10px"}
-          >
-            <RangeIcon className="text-range transform -translate-x-1/2 -translate-y-1/2" />
-            <Text
-              className="font-dmSans tracking-[0.07em] text-dark1"
-              fw={700}
-              fz={24}
-              fs="normal"
-            >
-              Range
-            </Text>
-          </Flex>
-          <div style={{ width: 112, height: 112 }}>
-            <CircularProgressbarWithChildren
-              strokeWidth={10}
-              value={45}
-              circleRatio={0.75}
-              styles={buildStyles({
-                // Rotation of path and trail, in number of turns (0-1)
-                rotation: 1 / 2 + 1 / 8,
-
-                // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                strokeLinecap: "round",
-
-                // Text size
-                textSize: "24px",
-
-                // How long animation takes to go from one percentage to another, in seconds
-                pathTransitionDuration: 0.5,
-
-                // Can specify path transition in more detail, or remove it entirely
-                // pathTransition: 'none',
-
-                // Colors
-                pathColor: `#FF7E86`,
-                textColor: "#000",
-                trailColor: "#F4F5F9 ",
-                backgroundColor: "white",
-              })}
-            >
-              <Text fw={700} fz={24} className={"text-dark1"}>
-                157k
-              </Text>
-            </CircularProgressbarWithChildren>
-          </div>
-        </Grid.Col>
-        <Grid.Col
-          xs={2}
-          bg="blue"
-          m="sm"
-          className="flex flex-col justify-center items-center  gap-7 bg-white rounded-2xl px-14 py-5"
-        >
-          <Flex
-            direction={"column"}
-            justify="center"
-            align={"center"}
-            gap={"10px"}
-          >
-            <BreakFluidIcon className="text-purple transform -translate-x-1/2 -translate-y-1/2" />
-            <Text
-              className="font-dmSans tracking-[0.07em] whitespace-nowrap text-dark1"
-              fw={700}
-              fz={24}
-              fs="normal"
-            >
-              Break fluid
-            </Text>
-          </Flex>
-          <div style={{ width: 112, height: 112 }}>
-            <CircularProgressbarWithChildren
-              strokeWidth={10}
-              value={9}
-              circleRatio={0.75}
-              styles={buildStyles({
-                // Rotation of path and trail, in number of turns (0-1)
-                rotation: 1 / 2 + 1 / 8,
-
-                // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                strokeLinecap: "round",
-
-                // Text size
-                textSize: "24px",
-
-                // How long animation takes to go from one percentage to another, in seconds
-                pathTransitionDuration: 0.5,
-
-                // Can specify path transition in more detail, or remove it entirely
-                // pathTransition: 'none',
-
-                // Colors
-                pathColor: `#A162F7`,
-                textColor: "#000",
-                trailColor: "#F4F5F9 ",
-                backgroundColor: "white",
-              })}
-            >
-              <Text fw={700} fz={24} className={"text-dark1"}>
-                9%
-              </Text>
-            </CircularProgressbarWithChildren>
-          </div>
-        </Grid.Col>
-        <Grid.Col
-          xs={2}
-          bg="blue"
-          m="sm"
-          className="flex flex-col justify-center items-center  gap-7 bg-white rounded-2xl px-14 py-5"
-        >
-          <Flex
-            direction={"column"}
-            justify="center"
-            align={"center"}
-            gap={"10px"}
-          >
-            <TireWearIcon className="text-yellow transform -translate-x-1/2 -translate-y-1/2" />
-            <Text
-              className="font-dmSans tracking-[0.07em] whitespace-nowrap text-dark1"
-              fw={700}
-              fz={24}
-              fs="normal"
-            >
-              Tire Wear
-            </Text>
-          </Flex>
-          <div style={{ width: 112, height: 112 }}>
-            <CircularProgressbarWithChildren
-              strokeWidth={10}
-              value={25}
-              circleRatio={0.75}
-              styles={buildStyles({
-                // Rotation of path and trail, in number of turns (0-1)
-                rotation: 1 / 2 + 1 / 8,
-
-                // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                strokeLinecap: "round",
-
-                // Text size
-                textSize: "24px",
-
-                // How long animation takes to go from one percentage to another, in seconds
-                pathTransitionDuration: 0.5,
-
-                // Can specify path transition in more detail, or remove it entirely
-                // pathTransition: 'none',
-
-                // Colors
-                pathColor: `#F6CC0D`,
-                textColor: "#000",
-                trailColor: "#F4F5F9 ",
-                backgroundColor: "white",
-              })}
-            >
-              <Text fw={700} fz={24} className={"text-dark1"}>
-                25%
-              </Text>
-            </CircularProgressbarWithChildren>
-          </div>
-        </Grid.Col>
+              <item.icon className="transform -translate-x-1/2 -translate-y-1/2" />
+            </SpecCard>
+          );
+        })}
+      </Grid>
+      <Grid grow>
         <Grid.Col
           xs={5}
           m="sm"
@@ -317,112 +176,15 @@ function Dashboard() {
             className="ml-auto"
           />
         </Grid.Col>
-        <Grid.Col
-          xs={1}
-          m="sm"
-          className="flex flex-col justify-start items-start  gap-4 bg-tertiary rounded-xl  py-4 px-7 "
-        >
-          <Flex gap={4} justify="start">
-            <RecycleIcon width={24} height={24} />
-            <Text fz={16} fw={700} className="font-dmSans">
-              64% Recommend
-            </Text>
-          </Flex>
-          <Image src={"/images/9.png"} alt="miniCooper" width={255} mah={106} />
-          <Text fw={700} fz={20} className="leading-none">
-            Mini Cooper
-          </Text>
-          <Flex
-            justify={"space-between"}
-            align={"center"}
-            gap={16}
-            className={"w-full"}
-          >
-            <RepostIcon />
-            <Text fw={500} fz={14} className="text-darkGray">
-              132k
-            </Text>
-            <SettingsIcon width={16} height={16} />
-            <EnergyIconOutlined width={16} height={16} />
-            <Text fw={500} fz={14} className="text-darkGray ml-auto">
-              $32/h
-            </Text>
-          </Flex>
-        </Grid.Col>
-        <Grid.Col
-          xs={1}
-          m="sm"
-          className="flex flex-col justify-start items-start  gap-4 bg-tertiary rounded-xl  py-4 px-7 "
-        >
-          <Flex gap={4} justify="start">
-            <RecycleIcon width={24} height={24} />
-            <Text fz={16} fw={700} className="font-dmSans">
-              74% Recommend
-            </Text>
-          </Flex>
-          <Image
-            src={"/images/10.png"}
-            alt="miniCooper"
-            width={255}
-            mah={106}
-          />
-          <Text fw={700} fz={20} className="leading-none">
-            Porsche 911 Carrera
-          </Text>
-          <Flex
-            justify={"space-between"}
-            align={"center"}
-            gap={16}
-            className={"w-full"}
-          >
-            <RepostIcon />
-            <Text fw={500} fz={14} className="text-darkGray">
-              130k
-            </Text>
-            <SettingsIcon width={16} height={16} />
-            <EnergyIconOutlined width={16} height={16} />
-            <Text fw={500} fz={14} className="text-darkGray ml-auto">
-              $28/h
-            </Text>
-          </Flex>
-        </Grid.Col>
-        <Grid.Col
-          xs={1}
-          m="sm"
-          className="flex flex-col justify-start items-start  gap-4 bg-tertiary rounded-xl  py-4 px-7 "
-        >
-          <Flex gap={4} justify="start">
-            <RecycleIcon width={24} height={24} />
-            <Text fz={16} fw={700} className="font-dmSans">
-              74% Recommend
-            </Text>
-          </Flex>
-          <Image
-            src={"/images/11.png"}
-            alt="miniCooper"
-            width={255}
-            mah={106}
-          />
-          <Text fw={700} fz={20} className="leading-none">
-            Porsche 911 Carrera
-          </Text>
-          <Flex
-            justify={"space-between"}
-            align={"center"}
-            gap={16}
-            className={"w-full"}
-          >
-            <RepostIcon />
-            <Text fw={500} fz={14} className="text-darkGray">
-              130k
-            </Text>
-            <SettingsIcon width={16} height={16} />
-            <EnergyIconOutlined width={16} height={16} />
-            <Text fw={500} fz={14} className="text-darkGray ml-auto">
-              $28/h
-            </Text>
-          </Flex>
-        </Grid.Col>
+      </Grid>
+      <Grid grow>
+        {isLoading && <Text> Top cars is still loading</Text>}
+        {isError && <Text> Error while fetching top cars</Text>}
+
+        {isSuccess &&
+          topCars?.map((car: carType) => {
+            return <TopCarCard key={car.id} car={car} />;
+          })}
       </Grid>
     </div>
   );

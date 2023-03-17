@@ -3,6 +3,7 @@ import { Card, Image, Text, Group, Center, Flex } from "@mantine/core";
 import HeartIcon from "../../../Icons/HeartIcon";
 import RepostIcon from "../../../Icons/RepostIcon";
 import UserIcon from "../../../Icons/UserIcon";
+import { useUpdateCarMutation } from "../../../services/car";
 import { carType } from "../../../types";
 
 type carCardProps = {
@@ -22,6 +23,12 @@ export default function CarCard({ car }: carCardProps) {
     state,
     automatic,
   } = car;
+
+  const [updateCar] = useUpdateCarMutation();
+
+  const handleSetFavourite = () => {
+    updateCar({ id: id, favourited: !favourited });
+  };
   return (
     <>
       <Flex wrap={"nowrap"} justify={"space-between"} align={"start"}>
@@ -42,6 +49,9 @@ export default function CarCard({ car }: carCardProps) {
         <HeartIcon
           width={24}
           height={24}
+          onClick={() => {
+            handleSetFavourite();
+          }}
           className={`${
             favourited ? "fill-current text-red-500 " : "text-darkGray6  "
           } cursor-pointer`}

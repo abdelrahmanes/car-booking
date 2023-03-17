@@ -4,15 +4,17 @@ type iconProps = {
   width?: number;
   height?: number;
   fill?: string;
+  onClick?: () => void;
 };
 export default function HeartIcon({
   className,
   stroke,
   width,
   height,
+  onClick,
 }: iconProps) {
   return (
-    <div className="  bg-transparent rounded-full  ">
+    <div className="  bg-transparent rounded-full  " onClick={onClick}>
       <svg
         width={width || 20}
         height={height || 20}

@@ -6,13 +6,7 @@ import {
   Flex,
   Image,
 } from "@mantine/core";
-import {
-  IconLayoutDashboard,
-  IconCar,
-  IconLogout,
-  IconSettings,
-} from "@tabler/icons-react";
-import { MantineLogo } from "@mantine/ds";
+
 import { NavLink } from "react-router-dom";
 import DashboardIcon from "../Icons/DashboardIcon";
 import CarIcon from "../Icons/CarIcon";
@@ -51,10 +45,6 @@ const useStyles = createStyles((theme) => ({
           ? theme.colors.dark[6]
           : theme.colors.gray[1],
       color: theme.colorScheme === "dark" ? theme.white : theme.black,
-
-      [`& .${getStylesRef("icon")}`]: {
-        color: theme.colorScheme === "dark" ? theme.white : theme.black,
-      },
     },
   },
 
@@ -70,13 +60,6 @@ const useStyles = createStyles((theme) => ({
   linkActive: {
     "&, &:hover": {
       backgroundColor: theme.colors.gray[2],
-      color: theme.colors.gray[8],
-      [`& .${getStylesRef("icon")}`]: {
-        color: theme.fn.variant({
-          variant: "light",
-          color: theme.colors.gray[0],
-        }).color,
-      },
     },
   },
 }));

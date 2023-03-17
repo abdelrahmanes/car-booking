@@ -1,4 +1,5 @@
 import { Container, Grid, Text } from "@mantine/core";
+import { is } from "immer/dist/internal";
 import { useState, useEffect } from "react";
 
 import { useGetItemsQuery } from "../../services/car";
@@ -10,19 +11,12 @@ function Booking() {
   // const [cars, setCars] = useState<carType[]>([]);
   const [filteredCars, setFilteredCars] = useState<carType[]>([]);
   const [filters, setFilters] = useState({});
-  const { data, isLoading } = useGetItemsQuery(filters);
+  const { data, isLoading, isError } = useGetItemsQuery(filters);
 
   const getFilters = (filters: {}) => {
     setFilters(filters);
   };
 
-  // for didmount lifecycle
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setFilteredCars(data);
-  //   }
-  // }, []);
   useEffect(() => {
     if (data) {
       setFilteredCars(data);
@@ -35,6 +29,7 @@ function Booking() {
         Booking
       </Text>
       <FilterSection getFilters={getFilters} />
+      {isError ? <Text>Error fetching cars</Text> : null}
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
