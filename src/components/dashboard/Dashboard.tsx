@@ -328,12 +328,7 @@ function Dashboard() {
               64% Recommend
             </Text>
           </Flex>
-          <Image
-            src={"/images/miniCooper.png"}
-            alt="miniCooper"
-            width={255}
-            mah={106}
-          />
+          <Image src={"/images/9.png"} alt="miniCooper" width={255} mah={106} />
           <Text fw={700} fz={20} className="leading-none">
             Mini Cooper
           </Text>
@@ -366,7 +361,7 @@ function Dashboard() {
             </Text>
           </Flex>
           <Image
-            src={"/images/porsche1.png"}
+            src={"/images/10.png"}
             alt="miniCooper"
             width={255}
             mah={106}
@@ -403,7 +398,7 @@ function Dashboard() {
             </Text>
           </Flex>
           <Image
-            src={"/images/porsche2.png"}
+            src={"/images/11.png"}
             alt="miniCooper"
             width={255}
             mah={106}

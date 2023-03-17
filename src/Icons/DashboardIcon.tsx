@@ -1,13 +1,20 @@
 type iconProps = {
   className?: string;
-  stroke: string;
+  stroke?: string;
+  width?: number;
+  height?: number;
 };
 
-export default function DashboardIcon({ className, stroke }: iconProps) {
+export default function DashboardIcon({
+  className,
+  stroke,
+  width,
+  height,
+}: iconProps) {
   return (
     <svg
-      width="20"
-      height="20"
+      width={width || 20}
+      height={height || 20}
       viewBox="0 0 20 20"
       fill="none"
       stroke={stroke}
