@@ -29,7 +29,7 @@ export default function NotificationIcon({
         r="3.75"
         fill="#FF5E6F"
         stroke="white"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
     </svg>
   );

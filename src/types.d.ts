@@ -16,3 +16,8 @@ export type carType = {
   brake_fluid: number;
   tire_wear: number;
 };
+
+export type filterType = {
+  Brand: string;
+  State: string;
+};

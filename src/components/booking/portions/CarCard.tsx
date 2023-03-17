@@ -44,7 +44,7 @@ export default function CarCard({ car }: carCardProps) {
           height={24}
           className={`${
             favourited ? "fill-current text-red-500 " : "text-darkGray6  "
-          }   `}
+          } cursor-pointer`}
         />
       </Flex>
       <Card.Section className="flex justify-center items-center" mx={0}>

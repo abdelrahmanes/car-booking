@@ -1,23 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, Group, Text, UnstyledButton } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
 
 type dropdownListProps = {
   data: { label: string }[];
+  setFilters: (p: object) => void;
 };
 
-export default function DropdownList({ data }: dropdownListProps) {
+export default function DropdownList({ data, setFilters }: dropdownListProps) {
   const [opened, setOpened] = useState(false);
-  const [selected, setSelected] = useState(data[0]);
-  const items = data.map((item) => (
+  const [selected, setSelected] = useState(data?.[0]);
+
+  const items = data?.map((item, index) => (
     <Menu.Item
-      onClick={() => setSelected(item)}
-      key={item.label}
+      onClick={() => {
+        setSelected(item);
+      }}
+      key={`${item?.label}-${index}`}
       className="rounded-md"
+      disabled={index === 0}
     >
-      {item.label}
+      {item?.label}
     </Menu.Item>
   ));
+
+  useEffect(() => {
+    setFilters((oldFilters: {}) => {
+      return { ...oldFilters, [data[0].label]: selected.label };
+    });
+  }, [selected]);
 
   return (
     <Menu
@@ -35,7 +46,7 @@ export default function DropdownList({ data }: dropdownListProps) {
         >
           <Group spacing="xs">
             <Text fw={500} fz={16} w={80} truncate>
-              {selected.label}
+              {selected?.label}
             </Text>
           </Group>
           <IconChevronDown
