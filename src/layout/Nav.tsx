@@ -5,6 +5,8 @@ import {
   getStylesRef,
   Flex,
   Image,
+  MediaQuery,
+  rem,
 } from "@mantine/core";
 
 import { NavLink } from "react-router-dom";
@@ -91,9 +93,12 @@ export default function Nav() {
 
   return (
     <Navbar
+      display={{ xxs: "none", sm: "flex" }}
       width={{ sm: 250 }}
-      p="md"
-      className={`md:fixed ${lang === "ar" ? "right-0 left-auto" : "left-0"}`}
+      p={{ xxs: 0, sm: "md" }}
+      className={`md:fixed ${
+        lang === "ar" ? "right-0 left-auto" : "left-0"
+      }  overflow-hidden`}
     >
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">

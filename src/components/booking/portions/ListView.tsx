@@ -26,7 +26,7 @@ export default function ListView({ car, handleSetFavourite }: listViewProps) {
   return (
     <>
       <Card.Section className="flex justify-center items-center" mx={0}>
-        <Image src={image} alt={`${brand} ${model}`} width={220} h={115} />
+        <Image src={image} alt={`${brand} ${model}`} maw={220} mah={115} />
       </Card.Section>
       <Flex
         direction={"column"}

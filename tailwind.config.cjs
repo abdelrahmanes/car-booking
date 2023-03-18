@@ -3,10 +3,14 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      transitionProperty: {
+        width: "width",
+      },
       translate: {
         2.5: "10px",
       },
       screens: {
+        xxs: "20em",
         xs: "36em",
       },
       colors: {

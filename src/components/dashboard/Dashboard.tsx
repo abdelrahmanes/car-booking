@@ -130,7 +130,7 @@ function Dashboard() {
             </button>
           </Flex>
 
-          <Image src="/images/desk.png" alt="desk" maw={"15rem"} />
+          <Image src="/images/desk.png" alt="desk" maw={"15rem"} miw={"8rem"} />
         </Grid.Col>
         <Grid.Col
           xs={1}

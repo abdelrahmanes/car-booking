@@ -39,7 +39,7 @@ export default function SpecCard({
       <Flex direction={"column"} justify="center" align={"center"} gap={"10px"}>
         {children}
         <Text
-          className={`font-dmSans tracking-[0.07em] text-${labelColor}`}
+          className={`font-dmSans tracking-[0.07em] text-${labelColor} whitespace-nowrap`}
           fw={700}
           fz={24}
           fs="normal"

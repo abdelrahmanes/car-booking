@@ -63,7 +63,7 @@ function Booking() {
                   m="sm"
                   className={`flex ${
                     gridActive ? "flex-col" : ""
-                  } bg-white    gap-7  bg-transparent rounded-2xl p-6`}
+                  } bg-white  gap-7  bg-transparent rounded-2xl p-6`}
                 >
                   <CarCard car={car} grid={gridActive} />
                 </Grid.Col>
