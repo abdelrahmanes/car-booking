@@ -1,11 +1,4 @@
-import {
-  createStyles,
-  Container,
-  Avatar,
-  Group,
-  rem,
-  Image,
-} from "@mantine/core";
+import { createStyles, Container, Avatar, Group } from "@mantine/core";
 import NotificationIcon from "../Icons/NotificationIcon";
 
 import SearchInput from "./portions/SearchInput";
@@ -45,9 +38,9 @@ interface HeaderProps {
 
 export default function Header({ user }: HeaderProps) {
   const { classes } = useStyles();
-
+  const lang = localStorage.getItem("lang");
   return (
-    <div className={`${classes.header} flex-1 bg-white md:sticky top-0 z-50`}>
+    <div className={`${classes.header} flex-1  bg-white md:sticky top-0 z-50`}>
       <Container className={classes.mainSection} p={0}>
         <Group position="apart">
           <SearchInput />

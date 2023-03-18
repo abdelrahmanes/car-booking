@@ -12,7 +12,7 @@ import DashboardIcon from "../Icons/DashboardIcon";
 import CarIcon from "../Icons/CarIcon";
 import SettingsIcon from "../Icons/SettingsIcon";
 import LogoutIcon from "../Icons/LogoutIcon";
-
+const lang = localStorage.getItem("lang");
 const useStyles = createStyles((theme) => ({
   header: {
     paddingBottom: theme.spacing.md,
@@ -27,6 +27,7 @@ const useStyles = createStyles((theme) => ({
   link: {
     ...theme.fn.focusStyles(),
     display: "flex",
+    gap: "12px",
     alignItems: "center",
     textDecoration: "none",
     fontSize: theme.fontSizes.sm,
@@ -54,7 +55,6 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark"
         ? theme.colors.dark[2]
         : theme.colors.gray[6],
-    marginRight: theme.spacing.sm,
   },
 
   linkActive: {
@@ -90,7 +90,11 @@ export default function Nav() {
   ));
 
   return (
-    <Navbar width={{ sm: 250 }} p="md" className="md:fixed">
+    <Navbar
+      width={{ sm: 250 }}
+      p="md"
+      className={`md:fixed ${lang === "ar" ? "right-0 left-auto" : "left-0"}`}
+    >
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           <Image

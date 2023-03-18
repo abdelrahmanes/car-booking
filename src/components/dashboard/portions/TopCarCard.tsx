@@ -10,6 +10,7 @@ type TopCarCardProps = {
 };
 
 export default function TopCarCard({ car }: TopCarCardProps) {
+  const lang = localStorage.getItem("lang");
   return (
     <Grid.Col
       xs={3}
@@ -19,7 +20,7 @@ export default function TopCarCard({ car }: TopCarCardProps) {
       <Flex gap={4} justify="start">
         <RecycleIcon width={24} height={24} />
         <Text fz={16} fw={700} className="font-dmSans">
-          {car.kilometers}% Recommend
+          {car.kilometers} % Recommend
         </Text>
       </Flex>
       <Image src={car.image} alt={car.model} width={255} mah={106} />
@@ -38,7 +39,11 @@ export default function TopCarCard({ car }: TopCarCardProps) {
         </Text>
         <SettingsIcon width={16} height={16} />
         <EnergyIconOutlined width={16} height={16} />
-        <Text fw={500} fz={14} className="text-darkGray ml-auto">
+        <Text
+          fw={500}
+          fz={14}
+          className={`${lang === "ar" ? "mr-auto" : "ml-auto"} text-darkGray  `}
+        >
           ${car.price}/h
         </Text>
       </Flex>

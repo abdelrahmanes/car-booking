@@ -3,6 +3,9 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      translate: {
+        2.5: "10px",
+      },
       screens: {
         xs: "36em",
       },

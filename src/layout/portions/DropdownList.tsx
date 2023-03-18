@@ -30,6 +30,7 @@ export default function DropdownList({ data, setFilters }: dropdownListProps) {
     });
   }, [selected]);
 
+  const lang = localStorage.getItem("lang");
   return (
     <Menu
       onOpen={() => setOpened(true)}
@@ -40,7 +41,9 @@ export default function DropdownList({ data, setFilters }: dropdownListProps) {
     >
       <Menu.Target>
         <UnstyledButton
-          className={`bg-white rounded-3xl text-dark2 px-5 py-2 border-0 flex justify-between items-center whitespace-nowrap `}
+          className={`bg-white rounded-3xl text-dark2 px-5 py-2 border-0 flex ${
+            lang === "ar" ? "flex-row-reverse" : ""
+          } justify-between items-center whitespace-nowrap `}
           w={140}
           maw={250}
         >

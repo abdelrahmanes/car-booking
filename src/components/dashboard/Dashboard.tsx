@@ -10,6 +10,9 @@ import { useGetItemsQuery } from "../../services/car";
 import { carType } from "../../types";
 import SpecCard from "./portions/SpecCard";
 import TopCarCard from "./portions/TopCarCard";
+
+import { useTranslation } from "react-i18next";
+
 function Dashboard() {
   const [topCars, setTopCars] = useState<carType[]>([]);
   const { data, isLoading, isSuccess, isError } = useGetItemsQuery({});
@@ -77,8 +80,11 @@ function Dashboard() {
       trailColor: "#F4F5F9",
     },
   ];
+
+  const { t } = useTranslation();
+  const lang = localStorage.getItem("lang");
   return (
-    <div className="px-8 py-4  ">
+    <div className="px-8 py-4 ">
       <Grid gutter={20} grow>
         {specCardsData.map((item) => {
           return (
@@ -93,7 +99,13 @@ function Dashboard() {
               textColor={item.textColor}
               trailColor={item.trailColor}
             >
-              <item.icon className="transform -translate-x-1/2 -translate-y-1/2" />
+              <item.icon
+                className={`transform  ${
+                  lang === "ar"
+                    ? "translate-x-2.5 -translate-y-2.5"
+                    : "-translate-x-1/2 -translate-y-1/2"
+                }`}
+              />
             </SpecCard>
           );
         })}
@@ -102,7 +114,7 @@ function Dashboard() {
         <Grid.Col
           xs={5}
           m="sm"
-          className="flex pl-6 pr-2 justify-between items-center bg-carrotOrange rounded-[4px]"
+          className={`flex px-4 justify-between items-center bg-carrotOrange rounded-[4px]`}
         >
           <Flex direction={"column"} gap={28}>
             <Flex direction={"column"}>
