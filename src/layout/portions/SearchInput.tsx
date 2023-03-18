@@ -1,15 +1,16 @@
-import {
-  TextInput,
-  TextInputProps,
-  ActionIcon,
-  useMantineTheme,
-  MantineProvider,
-} from "@mantine/core";
-import { IconSearch, IconArrowRight, IconArrowLeft } from "@tabler/icons-react";
+import { TextInput, TextInputProps, MantineProvider } from "@mantine/core";
+import { IconSearch } from "@tabler/icons-react";
+import { useDispatch, useSelector } from "react-redux";
+import { setQuery } from "../../Redux/features/search";
+import { RootState } from "../../Redux/store";
 
 export default function SearchInput(props: TextInputProps) {
-  const theme = useMantineTheme();
+  const dispatch = useDispatch();
 
+  const query = useSelector((state: RootState) => state.search.query);
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setQuery(event.target.value));
+  };
   return (
     <MantineProvider
       inherit
@@ -36,22 +37,10 @@ export default function SearchInput(props: TextInputProps) {
         radius="md"
         size="sm"
         fz={"lg"}
-        //   rightSection={
-        //     <ActionIcon
-        //       size={32}
-        //       radius="xl"
-        //       color={theme.primaryColor}
-        //       variant="filled"
-        //     >
-        //       {theme.dir === "ltr" ? (
-        //         <IconArrowRight size="1.1rem" stroke={1.5} />
-        //       ) : (
-        //         <IconArrowLeft size="1.1rem" stroke={1.5} />
-        //       )}
-        //     </ActionIcon>
-        //   }
         placeholder="Search or type"
         variant="filled"
+        value={query}
+        onChange={changeHandler}
         className="focus:border-gray-200"
         {...props}
       />

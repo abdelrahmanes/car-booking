@@ -6,11 +6,15 @@ import "./styles/index.css";
 import "react-circular-progressbar/dist/styles.css";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import { carApiSlice } from "./services/car";
+import { Provider } from "react-redux";
+import { store } from "./Redux/store";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <ApiProvider api={carApiSlice}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </ApiProvider>
     </BrowserRouter>
   </React.StrictMode>

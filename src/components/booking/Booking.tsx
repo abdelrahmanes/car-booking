@@ -1,26 +1,39 @@
 import { Container, Grid, Text } from "@mantine/core";
-import { is } from "immer/dist/internal";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store";
 
-import { useGetItemsQuery } from "../../services/car";
+import { useGetItemsQuery, useGetSearchResultsQuery } from "../../services/car";
 import { carType } from "../../types";
 import CarCard from "./portions/CarCard";
 import FilterSection from "./portions/FilterSection";
 
 function Booking() {
   const [filteredCars, setFilteredCars] = useState<carType[]>([]);
-  const [filters, setFilters] = useState({});
-  const { data, isLoading, isError } = useGetItemsQuery(filters);
   const [gridActive, setGridActive] = useState(true);
+  const [filters, setFilters] = useState({});
+
+  const query = useSelector((state: RootState) => state.search.query);
+
+  const { data, isLoading, isError } = useGetItemsQuery(filters);
+  const {
+    data: searchResults,
+    isLoading: searchIsLoading,
+    isError: SearchIsError,
+  } = useGetSearchResultsQuery(query);
+
   const getFilters = (filters: {}) => {
     setFilters(filters);
   };
-
+  //handle filters and search
   useEffect(() => {
     if (data) {
       setFilteredCars(data);
     }
-  }, [data]);
+    if (query !== "") {
+      setFilteredCars(searchResults);
+    }
+  }, [data, query]);
 
   return (
     <Container p={"30px"} m={0} className="max-w-full">
@@ -32,8 +45,11 @@ function Booking() {
         gridActive={gridActive}
         setGridActive={setGridActive}
       />
-      {isError ? <Text>Error fetching cars</Text> : null}
-      {isLoading ? (
+      {isError || SearchIsError ? <Text>Error fetching cars</Text> : null}
+      {searchResults?.length === 0 && (
+        <Text>No results for this keyword, make sure of your spelling</Text>
+      )}
+      {isLoading || searchIsLoading ? (
         <Text>Loading...</Text>
       ) : (
         <div className="  py-4  ">
