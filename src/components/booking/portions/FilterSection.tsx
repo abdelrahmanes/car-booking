@@ -7,10 +7,16 @@ import { useGetItemsQuery } from "../../../services/car";
 import { carType } from "../../../types";
 type FilterSectionProps = {
   getFilters: (p: object) => void;
+  gridActive: boolean;
+  setGridActive: (arg: boolean) => void;
 };
-export default function FilterSection({ getFilters }: FilterSectionProps) {
+export default function FilterSection({
+  getFilters,
+  gridActive,
+  setGridActive,
+}: FilterSectionProps) {
   const [filtersActive, setFiltersActive] = useState(false);
-  const [gridActive, setGridActive] = useState(true);
+
   const [filters, setFilters] = useState({});
 
   const { data } = useGetItemsQuery("");
