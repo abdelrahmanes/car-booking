@@ -3,21 +3,29 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 import Booking from "./components/booking/Booking";
 import PageLayout from "./layout/PageLayout";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./Redux/store";
 import { useEffect } from "react";
+import { setCars } from "./Redux/features/car";
+import { useGetItemsQuery } from "./services/car";
 
 function App() {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language
   );
+  const lang = localStorage.getItem("lang");
+  const { data } = useGetItemsQuery("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     localStorage.setItem("lang", currentLanguage);
   }, [currentLanguage]);
 
-  const lang = localStorage.getItem("lang");
-
+  useEffect(() => {
+    if (data) {
+      dispatch(setCars(data.specs));
+    }
+  }, [data]);
   return (
     <>
       <PageLayout className={`${lang === "ar" ? "rtl" : "ltr"}`}>

@@ -5,22 +5,22 @@ import FilterIcon from "../../../Icons/FilterIcon";
 import DropdownList from "../../../layout/portions/DropdownList";
 import { useGetItemsQuery } from "../../../services/car";
 import { carType } from "../../../types";
+
 type FilterSectionProps = {
   getFilters: (p: object) => void;
   gridActive: boolean;
   setGridActive: (arg: boolean) => void;
 };
+
 export default function FilterSection({
   getFilters,
   gridActive,
   setGridActive,
 }: FilterSectionProps) {
   const [filtersActive, setFiltersActive] = useState(false);
-
   const [filters, setFilters] = useState({});
 
   const { data } = useGetItemsQuery("");
-
   const carState = [
     { label: "State" },
     { label: "New" },
@@ -28,7 +28,8 @@ export default function FilterSection({
     { label: "Pre-owned" },
     { label: "New-alike" },
   ];
-  const brands = data?.map((car: carType) => {
+
+  const brands = data?.specs?.map((car: carType) => {
     return { label: car.brand };
   });
   const carBrand = brands
@@ -38,6 +39,7 @@ export default function FilterSection({
   useEffect(() => {
     getFilters(filters);
   }, [filters]);
+
   return (
     <Group
       position={"apart"}
@@ -68,7 +70,7 @@ export default function FilterSection({
           } rounded-full p-2 cursor-pointer`}
           onClick={() => {
             setFiltersActive(!filtersActive);
-            setFilters({});
+            setFilters({ Brand: "Brand", State: "State" });
           }}
         >
           <FilterIcon

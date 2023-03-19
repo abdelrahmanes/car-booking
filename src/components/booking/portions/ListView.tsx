@@ -3,14 +3,12 @@ import { Card, Image, Text, Group, Center, Flex } from "@mantine/core";
 import HeartIcon from "../../../Icons/HeartIcon";
 import RepostIcon from "../../../Icons/RepostIcon";
 import UserIcon from "../../../Icons/UserIcon";
-import { useUpdateCarMutation } from "../../../services/car";
 import { carType } from "../../../types";
 
 type listViewProps = {
   car: carType;
-  handleSetFavourite: () => void;
 };
-export default function ListView({ car, handleSetFavourite }: listViewProps) {
+export default function ListView({ car }: listViewProps) {
   const {
     id,
     brand,
@@ -52,9 +50,7 @@ export default function ListView({ car, handleSetFavourite }: listViewProps) {
           <HeartIcon
             width={24}
             height={24}
-            onClick={() => {
-              handleSetFavourite();
-            }}
+            onClick={() => {}}
             className={`${
               favourited ? "fill-current text-red-500 " : "text-darkGray6  "
             } cursor-pointer`}

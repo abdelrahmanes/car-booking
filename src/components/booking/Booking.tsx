@@ -1,39 +1,47 @@
 import { Container, Grid, Text } from "@mantine/core";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCars } from "../../Redux/features/car";
 import { RootState } from "../../Redux/store";
+import { useGetItemsQuery } from "../../services/car";
 
-import { useGetItemsQuery, useGetSearchResultsQuery } from "../../services/car";
 import { carType } from "../../types";
 import CarCard from "./portions/CarCard";
 import FilterSection from "./portions/FilterSection";
 
+interface keyable {
+  [key: string]: any;
+}
+
 function Booking() {
-  const [filteredCars, setFilteredCars] = useState<carType[]>([]);
   const [gridActive, setGridActive] = useState(true);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState<keyable>({});
 
-  const query = useSelector((state: RootState) => state.search.query);
-
-  const { data, isLoading, isError } = useGetItemsQuery(filters);
-  const {
-    data: searchResults,
-    isLoading: searchIsLoading,
-    isError: SearchIsError,
-  } = useGetSearchResultsQuery(query);
+  const data = useSelector((state: RootState) => state.car.cars);
+  const { data: allData } = useGetItemsQuery("");
+  const dispatch = useDispatch();
 
   const getFilters = (filters: {}) => {
     setFilters(filters);
   };
-  //handle filters and search
+
+  const filterCars = () => {
+    const filteredCars = allData?.specs?.filter((car: carType) => {
+      if (filters.Brand === "Brand" && filters.State === "State") {
+        return car;
+      } else if (filters.Brand !== "Brand" && filters.State !== "State") {
+        return car.brand === filters.Brand && car.state === filters.State;
+      } else {
+        return car.brand === filters.Brand || car.state === filters.State;
+      }
+    });
+    // this condition for the action not to empty the cars array in store if the filtered cars array is empty
+    dispatch(setCars(filteredCars));
+  };
+
   useEffect(() => {
-    if (data) {
-      setFilteredCars(data);
-    }
-    if (query !== "") {
-      setFilteredCars(searchResults);
-    }
-  }, [data, query]);
+    filterCars();
+  }, [filters]);
 
   return (
     <Container p={"30px"} m={0} className="max-w-full">
@@ -45,16 +53,13 @@ function Booking() {
         gridActive={gridActive}
         setGridActive={setGridActive}
       />
-      {isError || SearchIsError ? <Text>Error fetching cars</Text> : null}
-      {searchResults?.length === 0 && (
-        <Text>No results for this keyword, make sure of your spelling</Text>
-      )}
-      {isLoading || searchIsLoading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <div className="  py-4  ">
-          <Grid gutter={20} grow>
-            {filteredCars?.map((car: carType) => {
+
+      <div className="  py-4  ">
+        <Grid gutter={20} grow>
+          {data?.length === 0 ? (
+            <Text>No Results</Text>
+          ) : (
+            data?.map((car: carType) => {
               return (
                 <Grid.Col
                   key={car.id}
@@ -68,10 +73,10 @@ function Booking() {
                   <CarCard car={car} grid={gridActive} />
                 </Grid.Col>
               );
-            })}
-          </Grid>
-        </div>
-      )}
+            })
+          )}
+        </Grid>
+      </div>
     </Container>
   );
 }

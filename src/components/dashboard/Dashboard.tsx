@@ -1,21 +1,20 @@
 import { Flex, Grid, Image, Text } from "@mantine/core";
 import EnergyIcon from "../../Icons/EnergyIcon";
 import { useState, useEffect } from "react";
-
 import RangeIcon from "../../Icons/RangeIcon";
 import BreakFluidIcon from "../../Icons/BreakFluidIcon";
 import TireWearIcon from "../../Icons/TireWearIcon";
-
-import { useGetItemsQuery } from "../../services/car";
 import { carType } from "../../types";
 import SpecCard from "./portions/SpecCard";
 import TopCarCard from "./portions/TopCarCard";
-
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store";
 
 function Dashboard() {
   const [topCars, setTopCars] = useState<carType[]>([]);
-  const { data, isLoading, isSuccess, isError } = useGetItemsQuery({});
+  const data = useSelector((state: RootState) => state.car.cars);
+
   const top3 = (): carType[] => {
     let dataForSort;
     if (data) {
@@ -190,13 +189,9 @@ function Dashboard() {
         </Grid.Col>
       </Grid>
       <Grid grow>
-        {isLoading && <Text> Top cars is still loading</Text>}
-        {isError && <Text> Error while fetching top cars</Text>}
-
-        {isSuccess &&
-          topCars?.map((car: carType) => {
-            return <TopCarCard key={car.id} car={car} />;
-          })}
+        {topCars?.map((car: carType) => {
+          return <TopCarCard key={car.id} car={car} />;
+        })}
       </Grid>
     </div>
   );

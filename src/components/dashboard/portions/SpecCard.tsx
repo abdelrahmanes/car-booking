@@ -1,4 +1,4 @@
-import { Flex, Grid, Image, Text } from "@mantine/core";
+import { Flex, Grid, Text } from "@mantine/core";
 
 import {
   buildStyles,
