@@ -9,30 +9,44 @@ import { carType } from "../../types";
 import CarCard from "./portions/CarCard";
 import FilterSection from "./portions/FilterSection";
 
-interface keyable {
+export interface keyable {
   [key: string]: any;
 }
 
 function Booking() {
   const [filtersActive, setFiltersActive] = useState(false);
   const [gridActive, setGridActive] = useState(true);
-  const [filters, setFilters] = useState<keyable>({});
+  const [filters, setFilters] = useState<keyable>({
+    Brand: "Brand",
+    State: "State",
+  });
 
   const data = useSelector((state: RootState) => state.car.cars);
-  const { data: allData } = useGetItemsQuery("");
+  const { data: allData, isLoading } = useGetItemsQuery("");
   const dispatch = useDispatch();
 
   const getFilters = (filters: {}) => {
-    setFilters(filters);
+    if (filters) {
+      console.log("sldk");
+
+      setFilters(filters);
+    }
+    console.log("sdf");
   };
 
   const filterCars = () => {
     const filteredCars = allData?.specs?.filter((car: carType) => {
       if (filters.Brand === "Brand" && filters.State === "State") {
+        console.log(1);
+
         return car;
       } else if (filters.Brand !== "Brand" && filters.State !== "State") {
+        console.log(2);
+
         return car.brand === filters.Brand && car.state === filters.State;
       } else {
+        console.log(3);
+
         return car.brand === filters.Brand || car.state === filters.State;
       }
     });
@@ -59,6 +73,8 @@ function Booking() {
 
       <div className="  py-4  ">
         <Grid gutter={20} grow>
+          {isLoading && <Text>Loading...</Text>}
+          {/* prettier-ignore */}
           {(filtersActive && data?.length) === 0 ? (
             <Text>No Results</Text>
           ) : (

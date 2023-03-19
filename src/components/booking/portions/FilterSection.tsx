@@ -5,6 +5,7 @@ import FilterIcon from "../../../Icons/FilterIcon";
 import DropdownList from "../../../layout/portions/DropdownList";
 import { useGetItemsQuery } from "../../../services/car";
 import { carType } from "../../../types";
+import { keyable } from "../Booking";
 
 type FilterSectionProps = {
   getFilters: (p: object) => void;
@@ -21,7 +22,10 @@ export default function FilterSection({
   setGridActive,
   setFiltersActive,
 }: FilterSectionProps) {
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState<keyable>({
+    Brand: "Brand",
+    State: "State",
+  });
 
   const { data } = useGetItemsQuery("");
   const carState = [
