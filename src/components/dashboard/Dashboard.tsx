@@ -83,7 +83,7 @@ function Dashboard() {
   const { t } = useTranslation();
   const lang = localStorage.getItem("lang");
   return (
-    <div className="px-8 py-4 ">
+    <div className="p-8 ">
       <Grid gutter={20} grow>
         {specCardsData.map((item) => {
           return (

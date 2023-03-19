@@ -22,7 +22,6 @@ export default function SearchInput(props: TextInputProps) {
                 "&:focus": { borderColor: "transparent" },
                 // paddingRight: "calc(18.25rem / 3)",
                 padding: "12px 14px",
-                width: "358px",
                 height: "46px",
                 caretColor: "orange",
                 fontWeight: 500,
@@ -35,7 +34,7 @@ export default function SearchInput(props: TextInputProps) {
       <TextInput
         icon={<IconSearch size="1.1rem" stroke={2} />}
         radius="md"
-        size="sm"
+        size="lg"
         fz={"lg"}
         placeholder="Search or type"
         variant="filled"

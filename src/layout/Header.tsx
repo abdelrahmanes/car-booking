@@ -21,7 +21,7 @@ const useStyles = createStyles((theme) => ({
   header: {
     padding: "15px 31px",
     [`@media (max-width: ${theme.breakpoints.sm})`]: {
-      padding: "15px 2px",
+      padding: "15px 15px",
     },
   },
 
@@ -99,7 +99,7 @@ export default function Header({ user }: HeaderProps) {
     <div className={`${classes.header} flex-1  bg-white md:sticky top-0 z-50`}>
       <Container className={classes.mainSection} p={0}>
         <Flex align={"center"} justify={"space-between"} gap={6}>
-          <Flex align={"center"} gap={6}>
+          <Flex align={"center"} gap={8}>
             <Burger
               display={{ xxs: "block", sm: "none" }}
               opened={opened}
