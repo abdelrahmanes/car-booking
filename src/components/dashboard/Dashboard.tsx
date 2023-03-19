@@ -10,15 +10,16 @@ import TopCarCard from "./portions/TopCarCard";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
+import { useGetItemsQuery } from "../../services/car";
 
 function Dashboard() {
   const [topCars, setTopCars] = useState<carType[]>([]);
-  const data = useSelector((state: RootState) => state.car.cars);
+  const { data } = useGetItemsQuery("");
 
   const top3 = (): carType[] => {
     let dataForSort;
     if (data) {
-      dataForSort = [...data];
+      dataForSort = [...data?.specs];
     }
     return dataForSort
       ?.sort((a: carType, b: carType) => b.stars - a.stars)
