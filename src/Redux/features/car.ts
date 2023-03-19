@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface CarState {
   cars: carType[];
+  query: string;
 }
 
 const initialState: CarState = {
   cars: [],
+  query: "",
 };
 
 const carSlice = createSlice({
@@ -16,9 +18,12 @@ const carSlice = createSlice({
     setCars: (state, action) => {
       state.cars = action.payload;
     },
+    setQuery: (state, action) => {
+      state.query = action.payload;
+    },
   },
 });
 
-export const { setCars } = carSlice.actions;
+export const { setCars, setQuery } = carSlice.actions;
 
 export default carSlice.reducer;

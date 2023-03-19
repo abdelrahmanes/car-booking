@@ -22,31 +22,28 @@ function Booking() {
   });
 
   const data = useSelector((state: RootState) => state.car.cars);
+  const query = useSelector((state: RootState) => state.car.query);
   const { data: allData, isLoading } = useGetItemsQuery("");
   const dispatch = useDispatch();
 
   const getFilters = (filters: {}) => {
-    if (filters) {
-      console.log("sldk");
-
-      setFilters(filters);
-    }
-    console.log("sdf");
+    setFilters(filters);
   };
 
   const filterCars = () => {
     const filteredCars = allData?.specs?.filter((car: carType) => {
+      if (query !== "") {
+        return (
+          car.brand.toLocaleLowerCase().includes(query.toLocaleLowerCase()) ||
+          car.state.toLocaleLowerCase().includes(query.toLocaleLowerCase()) ||
+          car.type.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+        );
+      }
       if (filters.Brand === "Brand" && filters.State === "State") {
-        console.log(1);
-
         return car;
       } else if (filters.Brand !== "Brand" && filters.State !== "State") {
-        console.log(2);
-
         return car.brand === filters.Brand && car.state === filters.State;
       } else {
-        console.log(3);
-
         return car.brand === filters.Brand || car.state === filters.State;
       }
     });
@@ -56,7 +53,7 @@ function Booking() {
 
   useEffect(() => {
     filterCars();
-  }, [filters]);
+  }, [filters, query]);
 
   return (
     <Container p={"30px"} m={0} className="max-w-full">
@@ -75,7 +72,7 @@ function Booking() {
         <Grid gutter={20} grow>
           {isLoading && <Text>Loading...</Text>}
           {/* prettier-ignore */}
-          {(filtersActive && data?.length) === 0 ? (
+          {((filtersActive || query !== "") && data?.length) === 0 ? (
             <Text>No Results</Text>
           ) : (
             data?.map((car: carType) => {
