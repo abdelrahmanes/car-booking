@@ -14,6 +14,7 @@ interface keyable {
 }
 
 function Booking() {
+  const [filtersActive, setFiltersActive] = useState(false);
   const [gridActive, setGridActive] = useState(true);
   const [filters, setFilters] = useState<keyable>({});
 
@@ -49,14 +50,16 @@ function Booking() {
         Booking
       </Text>
       <FilterSection
+        filtersActive={filtersActive}
         getFilters={getFilters}
         gridActive={gridActive}
         setGridActive={setGridActive}
+        setFiltersActive={setFiltersActive}
       />
 
       <div className="  py-4  ">
         <Grid gutter={20} grow>
-          {data?.length === 0 ? (
+          {(filtersActive && data?.length) === 0 ? (
             <Text>No Results</Text>
           ) : (
             data?.map((car: carType) => {
