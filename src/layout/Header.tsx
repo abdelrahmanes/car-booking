@@ -103,7 +103,7 @@ export default function Header({ user }: HeaderProps) {
     </NavLink>
   ));
   return (
-    <div className={`${classes.header}     bg-white md:sticky top-0 z-50`}>
+    <div className={`${classes.header}     bg-white sticky top-0 z-50`}>
       <Container className={classes.mainSection} p={0}>
         <Flex
           align={"center"}
