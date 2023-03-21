@@ -15,7 +15,7 @@ This app consists of two pages:
 ## Installation
 clone this repo 
 ```bash
-  git clone -b mockiAPI https://github.com/abdelrahmanes/car-booking.git
+  git clone https://github.com/abdelrahmanes/car-booking.git
   
 ```
 
